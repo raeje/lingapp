@@ -3,13 +3,18 @@
 # Table name: users
 #
 #  id              :bigint           not null, primary key
-#  email           :string
-#  password        :string
-#  first_name      :string
-#  last_name       :string
 #  alias           :string
-#  password_digest :string
+#  barangay        :string
+#  city            :string
 #  contact_number  :string
+#  email           :string
+#  first_name      :string
+#  house           :string
+#  landmark        :string
+#  last_name       :string
+#  password        :string
+#  password_digest :string
+#  role            :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #

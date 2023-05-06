@@ -3,7 +3,7 @@
 # Table name: attendances
 #
 #  id         :bigint           not null, primary key
-#  is_present :boolean
+#  is_present :boolean          default(FALSE), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  event_id   :bigint           not null
@@ -11,6 +11,7 @@
 #
 # Indexes
 #
+#  attendances_by_event_user      (user_id,event_id) UNIQUE
 #  index_attendances_on_event_id  (event_id)
 #  index_attendances_on_user_id   (user_id)
 #

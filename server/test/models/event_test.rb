@@ -3,12 +3,17 @@
 # Table name: events
 #
 #  id                   :bigint           not null, primary key
-#  name                 :string
+#  barangay             :string
+#  category             :string
+#  city                 :string
 #  description          :string
-#  starts_at            :datetime
 #  ends_at              :datetime
+#  house                :string
+#  landmark             :string
 #  maximum_participants :integer
+#  name                 :string
 #  notes                :string
+#  starts_at            :datetime
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #

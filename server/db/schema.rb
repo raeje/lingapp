@@ -10,29 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_05_072929) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_06_121643) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "applicants", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "event_id", null: false
-    t.boolean "is_approved"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_applicants_on_event_id"
-    t.index ["user_id"], name: "index_applicants_on_user_id"
-  end
-
-  create_table "attendances", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "event_id", null: false
-    t.boolean "is_present"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_attendances_on_event_id"
-    t.index ["user_id"], name: "index_attendances_on_user_id"
-  end
 
   create_table "events", force: :cascade do |t|
     t.string "name"
@@ -43,6 +23,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_05_072929) do
     t.string "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "category"
+    t.string "city"
+    t.string "barangay"
+    t.string "house"
+    t.string "landmark"
+  end
+
+  create_table "events_users", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "user_id", null: false
+    t.boolean "is_approved", default: false, null: false
+    t.boolean "has_attended", default: false, null: false
+    t.index ["user_id", "event_id"], name: "composite_key", unique: true
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -51,6 +44,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_05_072929) do
     t.boolean "is_read"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -63,10 +58,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_05_072929) do
     t.string "contact_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "role"
+    t.string "city"
+    t.string "barangay"
+    t.string "house"
+    t.string "landmark"
   end
 
-  add_foreign_key "applicants", "events"
-  add_foreign_key "applicants", "users"
-  add_foreign_key "attendances", "events"
-  add_foreign_key "attendances", "users"
+  add_foreign_key "notifications", "users"
 end
