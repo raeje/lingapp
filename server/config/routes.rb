@@ -13,14 +13,16 @@ Rails.application.routes.draw do
       # post 'users/new' => 'users#create'
 
       # Events
-      get  'events'     => 'events#index'
-      post 'events'     => 'events#create'
-      get  'events/:id' => 'events#show'
+      get   'events'     => 'events#index'
+      post  'events'     => 'events#create'
+      get   'events/:id' => 'events#show'
+      patch 'events/:id' => 'events#update'
 
-      # UsersEvents
+      # EventsUser
+      get    'events_users'     => 'events_users#index'
       post   'events_users'     => 'events_users#create'
-      delete 'events_users'     => 'events_users#destroy'
-      get    'events_users'     => 'events_users#show'
+      delete 'events_users/:id' => 'events_users#destroy'
+      get    'events_users/:id' => 'events_users#show'
       patch  'events_users/:id' => 'events_users#update'
     end
   end

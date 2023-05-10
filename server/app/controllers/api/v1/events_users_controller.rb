@@ -9,6 +9,21 @@ module Api
       before_action only: %i[create destroy] do
         authorize_action('volunteer')
       end
+      before_action only: %i[update] do
+        authorize_action('organizer')
+      end
+
+      # GET /api/v1/events_users
+      def index
+        @events_users = EventsUser.all
+        render(json: @events_users, status: :ok)
+      end
+
+      # GET /api/v1/events_users/:id
+      def show
+        @events_user = EventsUser.find(params[:id])
+        render(json: @events_user, status: :ok)
+      end
 
       # POST /api/v1/events_users
       def create
@@ -27,7 +42,7 @@ module Api
 
       # DELETE /api/v1/events_users
       def destroy
-        @events_user = EventsUser.find_by(user_id: @current_user.id, event_id: params[:event_id])
+        @events_user = EventsUser.find(params[:id])
 
         if @events_user.destroy
           render(json: { message: 'Record deleted.' }, status: :no_content)
@@ -36,20 +51,14 @@ module Api
         end
       end
 
-      # GET /api/v1/events_users
-      def show
-        @events_users = EventsUser.where(event_id: params[:event_id])
-        render(json: @events_users, status: :ok)
-      end
-
       # PATCH /api/v1/events_users/:id
       def update
-        @events_users = EventsUser.find(params[:id])
+        @events_user = EventsUser.find(params[:id])
 
-        if @events_users.update(events_users_update_params)
-          render(json: @events_users, status: :ok)
+        if @events_user.update(events_users_update_params)
+          render(json: @events_user, status: :ok)
         else
-          render(json: { errors: @events_users.errors }, status: :unprocessable_entity)
+          render(json: { errors: @events_user.errors }, status: :unprocessable_entity)
         end
       end
 
