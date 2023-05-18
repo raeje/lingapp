@@ -23,4 +23,50 @@ const getEvents = async () => {
     });
 };
 
-export { getEvents };
+const createEvent = async ({
+  barangay,
+  category,
+  city,
+  description,
+  ends_at,
+  house,
+  landmark,
+  maximum_participants,
+  name,
+  notes,
+  starts_at,
+  image,
+}) => {
+  return await axios
+    .post(
+      `${LINGAPP_URL}/events`,
+      {
+        barangay,
+        category,
+        city,
+        description,
+        ends_at,
+        house,
+        landmark,
+        maximum_participants,
+        name,
+        notes,
+        starts_at,
+        image,
+      },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization,
+        },
+      }
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((errors) => {
+      return errors.response.data;
+    });
+};
+
+export { getEvents, createEvent };

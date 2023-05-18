@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: notifications
+# Table name: user_notifications
 #
 #  id         :bigint           not null, primary key
 #  body       :string
@@ -12,12 +12,12 @@
 #
 # Indexes
 #
-#  index_notifications_on_user_id  (user_id)
+#  index_user_notifications_on_user_id  (user_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class Notification < ApplicationRecord
+class UserNotification < ApplicationRecord
   belongs_to :user
 end

@@ -1,6 +1,6 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home, Events, Notifications, Login } from "./pages";
+import { EventForm, Events, Home, Login, Notifications } from "./pages";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +14,10 @@ const router = createBrowserRouter([
       {
         path: "/notifications",
         element: <Notifications />,
+      },
+      {
+        path: "/events/new",
+        element: <EventForm />,
       },
     ],
   },

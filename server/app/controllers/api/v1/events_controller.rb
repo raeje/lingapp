@@ -15,19 +15,21 @@ module Api
 
       # GET /api/v1/events
       def index
-        @events = Event.not_yet_started
-        render(json: @events, status: :ok)
+        @events = Event.not_yet_started.sort_by(&:created_at).reverse
+        # render(json: @events, status: :ok)
       end
 
       # POST /api/v1/events
       def create
-        @event = Event.new(event_params)
+        event = Event.new(event_params)
 
-        if @event.save
-          EventsUser.create(event_id: @event.id, user_id: @current_user.id, has_attended: true, is_approved: true)
-          render(json: @event, status: :created)
+        if @current_user.scheduling_conflict?(event)
+          render(json: { errors: ['Scheduling conflict.'] }, status: :unprocessable_entity)
+        elsif event.save
+          events_user, user_notification = CreateEventWithEventsUserAndUserNotification.call(event, user_id)
+          render(json: { event:, events_user:, user_notification: }, status: :created)
         else
-          render(json: { errors: @event.errors }, status: :unprocessable_entity)
+          render(json: { errors: event.errors }, status: :unprocessable_entity)
         end
       end
 
@@ -60,7 +62,12 @@ module Api
                       :barangay,
                       :city,
                       :house,
-                      :category)
+                      :category,
+                      :image)
+      end
+
+      def user_id
+        @current_user.id
       end
     end
   end

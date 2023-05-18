@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       # Users
       get   'users'     => 'users#index'
       patch 'users/:id' => 'users#update'
+      get   'users/me'  => 'users#me'
       # post 'users/new' => 'users#create'
 
       # Events

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../helpers/api/lingapp/authentication";
 import logo from "../images/lingapp-logo-reverse.png";
@@ -12,13 +12,13 @@ const initLoginForm = {
 };
 
 const Login = () => {
-  const [loginForm, setLoginform] = useState(initLoginForm);
+  const [loginForm, setLoginForm] = useState(initLoginForm);
 
   const navigate = useNavigate();
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    setLoginform({ ...loginForm, [name]: value });
+    setLoginForm({ ...loginForm, [name]: value });
   };
 
   const handleLogin = async () => {

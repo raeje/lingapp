@@ -1,15 +1,29 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+# frozen_string_literal: true
 
+def login_user(email, password)
+  response = RestClient.put('http://localhost:3000/api/v1/login', { email:, password: })
+  p '-------------------------------------------'
+  p "Logging in user: #{email}"
+  p JSON.parse(response)['token']
+  p '-------------------------------------------'
+  JSON.parse(response)['token']
+end
+
+def create_event(event_params, headers)
+  response = RestClient.post('http://localhost:3000/api/v1/events', event_params, headers)
+  p '-------------------------------------------'
+  p 'Event created:'
+  p JSON.parse(response)
+  p '-------------------------------------------'
+end
+
+# -----------------------------------------------
+# User
+# -----------------------------------------------
 User.create!(
   first_name: 'Jerry',
   last_name: 'Seinfeld',
-  email: 'jerry@lingap.com',
+  email: 'jerry@lingapp.com',
   password: 'jerry',
   password_confirmation: 'jerry',
   alias: 'Jerry',
@@ -23,7 +37,7 @@ User.create!(
 User.create!(
   first_name: 'Cosmo',
   last_name: 'Kramer',
-  email: 'cosmo@lingap.com',
+  email: 'cosmo@lingapp.com',
   password: 'kramer',
   password_confirmation: 'kramer',
   alias: 'Kramer',
@@ -37,11 +51,11 @@ User.create!(
 User.create!(
   first_name: 'Elaine',
   last_name: 'Benes',
-  email: 'elaine@lingap.com',
+  email: 'elaine@lingapp.com',
   password: 'elaine',
   password_confirmation: 'elaine',
   alias: 'Elaine',
-  role: 'volunteer',
+  role: 'organizer',
   contact_number: '3213213',
   city: 'Pasig City',
   barangay: 'San Sebastian',
@@ -51,7 +65,7 @@ User.create!(
 User.create!(
   first_name: 'George',
   last_name: 'Costanza',
-  email: 'george@lingap.com',
+  email: 'george@lingapp.com',
   password: 'elaine',
   password_confirmation: 'elaine',
   alias: 'George',
@@ -62,26 +76,55 @@ User.create!(
   house: '#420 High Place Street, Lower Area Subdivision'
 )
 
-Event.create!(
-  name: 'Tree Planting',
-  description: 'Tree Planting at Mt. Batulao',
-  category: 'environmental',
-  starts_at: DateTime.now,
-  ends_at: DateTime.now + 30.minutes,
-  maximum_participants: 30,
-  city: 'Quezon City',
-  barangay: 'Santo Domingo',
-  house: '#8 Kanto Tinio'
-)
+# -----------------------------------------------
+# Event
+# -----------------------------------------------
+token = login_user('jerry@lingapp.com', 'jerry')
+headers = {
+  'Content-Type': 'application/json',
+  'Authorization': token
+}
+create_event({ 'name': 'Tree Planting',
+               'description': 'Tree Planting at Mt. Batulao',
+               'category': 'environmental',
+               'starts_at': DateTime.now + 2.minutes,
+               'ends_at': DateTime.now + 90.minutes,
+               'maximum_participants': 30,
+               'city': 'Quezon City',
+               'barangay': 'Santo Domingo',
+               'house': '#8 Kanto Tinio' }, headers)
 
-Event.create!(
-  name: 'Operation Tuli',
-  description: '51st Annual Operation Tuli',
-  category: 'health',
-  starts_at: DateTime.now + 2.days,
-  ends_at: DateTime.now + 2.days + 30.minutes,
-  maximum_participants: 33,
-  city: 'Quezon City',
-  barangay: 'Santa Maria',
-  house: '#8 Gen. Trias Street'
-)
+create_event({ 'name': 'Operation Tuli',
+               'description': '51st Annual Operation Tuli',
+               'category': 'health',
+               'starts_at': DateTime.now + 4.days,
+               'ends_at': DateTime.now + 5.days + 90.minutes,
+               'maximum_participants': 33,
+               'city': 'Quezon City',
+               'barangay': 'Santa Maria',
+               'house': '#8 Gen. Trias Street' }, headers)
+
+token = login_user('elaine@lingapp.com', 'elaine')
+headers = {
+  'Content-Type': 'application/json',
+  'Authorization': token
+}
+create_event({ 'name': 'Disaster Response',
+               'description': 'Relief Goods Distribution',
+               'category': 'disaster',
+               'starts_at': DateTime.now + 2.days + 30.minutes,
+               'ends_at': DateTime.now + 2.days + 60.minutes,
+               'maximum_participants': 30,
+               'city': 'Batanes',
+               'barangay': 'Santo Domingo',
+               'house': '#8 Batan' }, headers)
+
+create_event({ 'name': 'Disaster Response',
+               'description': 'Relief Goods Distribution',
+               'category': 'disaster',
+               'starts_at': DateTime.now + 3.days + 30.minutes,
+               'ends_at': DateTime.now + 3.days + 60.minutes,
+               'maximum_participants': 30,
+               'city': 'Batanes',
+               'barangay': 'Santo Domingo',
+               'house': '#8 Batan' }, headers)

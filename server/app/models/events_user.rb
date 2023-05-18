@@ -13,22 +13,42 @@
 #  composite_key  (user_id,event_id) UNIQUE
 #
 class EventsUser < ApplicationRecord
+  include ActiveModel::Dirty
+  include NotificationHelper
+
   belongs_to :event
   belongs_to :user
 
-  validate :throw_error_if_event_has_concluded
+  validate :validate_event_concluded
+
+  after_create :create_notif_user_applied
+  before_update :create_notif_user_approved, if: :user_approved?
 
   def exists?(user_id, event_id)
     where(user_id:, event_id:)
   end
 
-  def throw_error_if_event_has_concluded
-    return unless event_concluded?
-
-    errors.add(:event_id, 'Cannot access concluded events.')
+  def user_approved?
+    is_approved_previously_changed?(from: false, to: true)
   end
 
-  def event_concluded?
-    Event.find(event_id).concluded?
+  def validate_event_concluded
+    return unless Event.find(event_id).concluded?
+
+    errors.add(:event_id, message: 'Cannot access concluded events.')
   end
+=begin
+  def validate_schedule
+    @event = Event.not_yet_started.find(event_id)
+    @events_users = EventsUser.where(user_id:)
+    return if @events_users.empty?
+
+    @events_users.each do |commitment|
+      commitment = Event.find(commitment.event_id)
+      if (@event.starts_at.to_i..@event.ends_at.to_i).overlaps?(commitment.starts_at.to_i..commitment.ends_at.to_i)
+        errors.add(:event_id, message: 'Cannot access this event; scheduling conflict.')
+      end
+    end
+  end
+=end
 end

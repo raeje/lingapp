@@ -34,6 +34,12 @@ module Api
         end
       end
 
+      # GET /api/v1/users/me
+      def me
+        @users = User.find(@current_user.id)
+        render json: { data: @users }
+      end
+
       private
 
       def user_params

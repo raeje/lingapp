@@ -52,4 +52,18 @@ class User < ApplicationRecord
     password_hash = Password.create(user_params[:password])
     create(email: user_params[:email], password: password_hash)
   end
+
+  def scheduling_conflict?(new_event)
+    @events_users = EventsUser.where(user_id: id)
+    return if @events_users.empty?
+
+    @events_users.each do |commitment|
+      commitment = Event.find(commitment.event_id)
+      if (new_event.starts_at.to_i..new_event.ends_at.to_i).overlaps?(commitment.starts_at.to_i..commitment.ends_at.to_i)
+        return true
+      end
+    end
+
+    false
+  end
 end

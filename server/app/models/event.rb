@@ -22,6 +22,9 @@
 class Event < ApplicationRecord
   has_many :events_users
   has_many :users, through: :events_users
+  has_one_attached :image, dependent: :destroy
+
+  after_commit :add_default_image, on: %i[create update]
 
   # name validation
   validates(:name, presence: true)
@@ -56,5 +59,18 @@ class Event < ApplicationRecord
 
   def concluded?
     ends_at < DateTime.now
+  end
+
+  private
+
+  def add_default_image
+    unless image.attached?
+      image.attach(io: File.open(Rails.root.join('app',
+                                                 'assets',
+                                                 'images',
+                                                 'default_event_image.jpeg')),
+                   filename: 'default_event_image.jpeg',
+                   content_type: 'image/jpg')
+    end
   end
 end
