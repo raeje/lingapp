@@ -10,26 +10,49 @@ const NavBar = () => {
 
   const CreateEventLink = () => {
     return (
-      <NavLink
-        className="bg-green-400 text-white w-12 h-12 rounded-full relative -top-10 -left-1/2 -translate-x-1/2 text-center py-2 flex place-content-center place-ite"
-        to="/events/new"
-        name="create-event"
-      >
-        <PlusIcon className="h-8 w-8" />
-      </NavLink>
+      <div className="h-16 w-16 bg-white absolute -top-5 left-1/2 transform -translate-x-1/2  border-b-2 border-gray-400 rounded-full grid place-items-center">
+        <NavLink
+          className="h-16 w-16 bg-red-400 text-white rounded-full text-center grid place-items-center border-2 border-white"
+          to="/events/new"
+          name="create-event"
+        >
+          <PlusIcon className="h-10 w-10 stroke-2" />
+        </NavLink>
+      </div>
     );
   };
 
   return (
-    <div className="fixed bottom-0 bg-white h-20 w-full grid grid-cols-4 gap-4 place-items-center z-3 border-t">
-      <NavButton path="/" name="Home" icon={<HomeIcon className="h-8 w-8" />} />
-      <NavButton
-        path="/notifications"
-        name="Notifications"
-        icon={<BellIcon className="h-8 w-8" />}
-      />
+    <div className="fixed bottom-0 h-20 w-full">
+      <div className="h-full w-full static bg-white grid grid-cols-5 gap-2 place-items-center z-3">
+        <NavButton
+          path="/"
+          name="Home"
+          icon={<HomeIcon className="h-8 w-8" />}
+        />
 
-      {decodedToken?.role === "organizer" ? <CreateEventLink /> : ""}
+        <NavButton
+          path="/notifications"
+          name="Notifications"
+          icon={<BellIcon className="h-8 w-8" />}
+        />
+
+        <div></div>
+
+        <NavButton
+          path="/asd"
+          name="PH1"
+          icon={<HomeIcon className="h-8 w-8" />}
+        />
+
+        <NavButton
+          path="/asd"
+          name="PH2"
+          icon={<HomeIcon className="h-8 w-8" />}
+        />
+
+        {decodedToken?.role === "organizer" ? <CreateEventLink /> : ""}
+      </div>
     </div>
   );
 };

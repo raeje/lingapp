@@ -170,7 +170,7 @@ const EventForm = () => {
 
       <div className="h-max p-2 border-b border-gray-200 grid place-items-center">
         <button
-          className="bg-red-300 border border-red-400 rounded-xl py-2 px-4 text-xl text-white font-bold"
+          className="bg-red-400 border border-red-400 rounded-full py-2 px-4 text-xl text-white font-bold my-2"
           onClick={handleCreate}
         >
           Create Event

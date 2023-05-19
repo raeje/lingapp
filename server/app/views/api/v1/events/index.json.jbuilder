@@ -24,4 +24,6 @@ json.array! @events do |event|
     json.first_name user.first_name
     json.last_name user.last_name
   end
+
+  json.participants event.number_of_participants
 end

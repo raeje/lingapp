@@ -4,7 +4,7 @@ import { TopBar, NavBar } from "../components";
 
 const Home = () => {
   return (
-    <div className="bg-gray-200 h-screen w-screen flex flex-col place-items-center">
+    <div className="bg-gray-300 h-screen w-screen max-w-screen ">
       <TopBar />
       <Outlet />
       <NavBar />

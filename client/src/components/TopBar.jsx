@@ -6,9 +6,9 @@ const TopBar = () => {
   const scrollDirection = useScrollDirection();
   return (
     <div
-      className={`sticky bg-white h-30 flex content-center border-b-2 border-red-900 w-full z-3 ${
+      className={`sticky h-30 border-b-2 border-red-900 w-full z-30 ${
         scrollDirection === "down" ? "-top-30" : "top-0"
-      }`}
+      } bg-white `}
     >
       <Logo />
     </div>

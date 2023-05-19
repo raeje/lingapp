@@ -14,9 +14,18 @@ const eventDatetimeRange = (datetimeStart, datetimeEnd) => {
   return `${start} to ${end}`;
 };
 
+const slotsRemaining = (max, attendees) => {
+  const slots = max - attendees;
+  if (slots > 1) {
+    return `${slots} slots left!`;
+  }
+
+  return slots === 1 ? "Last slot! Hurry!" : "No slots available.";
+};
+
 const EventCard = ({ event }) => {
   return (
-    <div className="h-96 w-full md:w-80 bg-white py-2 mb-2" key={event.id}>
+    <div className="h-96 w-full md:w-80 bg-white py-2 mb-2 z-10" key={event.id}>
       <div className="h-20 w-full p-2 grid grid-cols-4">
         <h1 className="font-bold col-span-3 text-xl">{event.name}</h1>
         <span className="font-bold text-sm text-red-400 text-right">
@@ -37,7 +46,11 @@ const EventCard = ({ event }) => {
 
       <img src={event.image} alt="event" className="object-cover h-64 w-full" />
 
-      <div className="w-full p-2">Actions</div>
+      <div className="w-full p-2 text-right">
+        <span className="italic text-red-600 font-bold pr-2">
+          {slotsRemaining(event.maximum_participants, event.participants)}
+        </span>
+      </div>
     </div>
   );
 };
