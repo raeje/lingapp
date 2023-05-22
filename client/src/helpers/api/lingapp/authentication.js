@@ -35,7 +35,7 @@ const login = async ({ email, password }) => {
       return response;
     })
     .catch((errors) => {
-      return errors;
+      return errors.response.data;
     });
 };
 

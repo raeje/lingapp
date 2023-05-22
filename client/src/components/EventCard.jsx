@@ -1,4 +1,7 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+import logo from "../images/logo.png";
+import logoGray from "../images/logo-gray.png";
 
 const formatDate = (datetimeString) => {
   const date = new Date(datetimeString).toDateString().substring(4);
@@ -6,12 +9,6 @@ const formatDate = (datetimeString) => {
     .toLocaleTimeString()
     .replace(/:\d{2}\s/, " ");
   return `${date} ${time}`;
-};
-
-const eventDatetimeRange = (datetimeStart, datetimeEnd) => {
-  const start = formatDate(datetimeStart);
-  const end = formatDate(datetimeEnd);
-  return `${start} to ${end}`;
 };
 
 const slotsRemaining = (max, attendees) => {
@@ -24,8 +21,29 @@ const slotsRemaining = (max, attendees) => {
 };
 
 const EventCard = ({ event }) => {
+  const AppliedIndicator = () => {
+    const textStyle = event.has_applied
+      ? "text-red-400"
+      : "text-gray-400 italic";
+    return (
+      <div className="flex gap-1 items-center align-center">
+        <img
+          src={event.has_applied ? logo : logoGray}
+          alt="applied-indicator"
+          className="h-7 w-7"
+        />
+        <span className={`${textStyle} text-sm`}>
+          {event.has_applied ? "Submitted" : "Not yet listed"}
+        </span>
+      </div>
+    );
+  };
+
   return (
-    <div className="h-96 w-full md:w-80 bg-white py-2 mb-2 z-10" key={event.id}>
+    <div
+      className="h-96 w-full md:h-1/3 md:w-2/3 md:rounded-lg bg-white py-2 mb-2 z-10 box-border "
+      key={event.id}
+    >
       <div className="h-20 w-full p-2 grid grid-cols-4">
         <h1 className="font-bold col-span-3 text-xl">{event.name}</h1>
         <span className="font-bold text-sm text-red-400 text-right">
@@ -44,11 +62,25 @@ const EventCard = ({ event }) => {
         </span>
       </div>
 
-      <img src={event.image} alt="event" className="object-cover h-64 w-full" />
-
-      <div className="w-full p-2 text-right">
+      <NavLink
+        exact="true"
+        to={{
+          pathname: `/events/${event.id}`,
+        }}
+      >
+        <img
+          src={event.image}
+          alt="event"
+          className="object-cover h-64 w-full"
+        />
+      </NavLink>
+      <div className="w-full p-2 flex justify-between">
+        <AppliedIndicator />
         <span className="italic text-red-600 font-bold pr-2">
-          {slotsRemaining(event.maximum_participants, event.participants)}
+          {slotsRemaining(
+            event.maximum_participants,
+            event.guest_list?.approved_count
+          )}
         </span>
       </div>
     </div>

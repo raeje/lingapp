@@ -25,5 +25,10 @@ json.array! @events do |event|
     json.last_name user.last_name
   end
 
-  json.participants event.number_of_participants
+  json.has_applied EventsUser.exists?(event_id: event.id, user_id: @current_user.id)
+
+  json.set! :guest_list do
+    json.approved_count event.approved_participants
+    json.pending_count event.pending_participants
+  end
 end

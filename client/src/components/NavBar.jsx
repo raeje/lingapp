@@ -1,5 +1,10 @@
 import React from "react";
-import { HomeIcon, BellIcon, PlusIcon } from "@heroicons/react/24/solid";
+import {
+  HomeIcon,
+  BellIcon,
+  PlusIcon,
+  CalendarDaysIcon,
+} from "@heroicons/react/24/solid";
 import NavButton from "./NavButton";
 import { NavLink } from "react-router-dom";
 import { useJwt } from "react-jwt";
@@ -23,7 +28,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="fixed bottom-0 h-20 w-full">
+    <div className="fixed -bottom-1 h-20 w-full z-30 box-border">
       <div className="h-full w-full static bg-white grid grid-cols-5 gap-2 place-items-center z-3">
         <NavButton
           path="/"
@@ -40,9 +45,9 @@ const NavBar = () => {
         <div></div>
 
         <NavButton
-          path="/asd"
-          name="PH1"
-          icon={<HomeIcon className="h-8 w-8" />}
+          path="/my-events"
+          name="My Events"
+          icon={<CalendarDaysIcon className="h-8 w-8" />}
         />
 
         <NavButton

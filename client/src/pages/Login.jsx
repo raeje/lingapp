@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../helpers/api/lingapp/authentication";
 import logo from "../images/lingapp-logo-reverse.png";
 import { setItem } from "../helpers/localStorage";
+import { toast } from "react-toastify";
 
 const DIMENSIONS_CLASS = "py-2 px-4 h-14 w-4/5 text-xl rounded-md max-w-lg";
 
@@ -25,11 +26,20 @@ const Login = () => {
     const loginAction = await login(loginForm);
 
     if (loginAction.status === 200) {
-      console.log(loginAction.data.token);
+      toast.success("Welcome back!");
+      setItem("Authorization", "");
       setItem("Authorization", loginAction.data.token);
       navigate("/");
     } else {
-      console.log(loginAction.errors);
+      console.log(loginAction);
+      toast.error(loginAction.errors);
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleLogin();
     }
   };
 
@@ -46,6 +56,7 @@ const Login = () => {
         placeholder="Email"
         name="email"
         onChange={handleFormChange}
+        onKeyPress={handleKeyPress}
       />
       <input
         type="password"
@@ -53,6 +64,7 @@ const Login = () => {
         placeholder="Password"
         name="password"
         onChange={handleFormChange}
+        onKeyPress={handleKeyPress}
       />
 
       <button

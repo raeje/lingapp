@@ -37,18 +37,4 @@ class EventsUser < ApplicationRecord
 
     errors.add(:event_id, message: 'Cannot access concluded events.')
   end
-=begin
-  def validate_schedule
-    @event = Event.not_yet_started.find(event_id)
-    @events_users = EventsUser.where(user_id:)
-    return if @events_users.empty?
-
-    @events_users.each do |commitment|
-      commitment = Event.find(commitment.event_id)
-      if (@event.starts_at.to_i..@event.ends_at.to_i).overlaps?(commitment.starts_at.to_i..commitment.ends_at.to_i)
-        errors.add(:event_id, message: 'Cannot access this event; scheduling conflict.')
-      end
-    end
-  end
-=end
 end

@@ -19,7 +19,7 @@ module Api
         render(json: @events_users, status: :ok)
       end
 
-      # GET /api/v1/events_users/:id
+      # GET /api/v1/events_users/:event_id
       def show
         @events_user = EventsUser.find(params[:id])
         render(json: @events_user, status: :ok)
@@ -40,12 +40,12 @@ module Api
         end
       end
 
-      # DELETE /api/v1/events_users
+      # DELETE /api/v1/events_users/
       def destroy
-        @events_user = EventsUser.find(params[:id])
+        @events_user = EventsUser.where(event_id: params[:event_id], user_id: @current_user.id).first
 
         if @events_user.destroy
-          render(json: { message: 'Record deleted.' }, status: :no_content)
+          render(json: { message: 'You have left the event. We hope to see you at future events!' }, status: :ok)
         else
           render(json: { errors: @events_user.errors }, status: :unprocessable_entity)
         end

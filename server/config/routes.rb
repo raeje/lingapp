@@ -18,13 +18,15 @@ Rails.application.routes.draw do
       post  'events'     => 'events#create'
       get   'events/:id' => 'events#show'
       patch 'events/:id' => 'events#update'
+      # Events custom route
+      get   'events/:id/guest_list/' => 'events#guest_list'
 
       # EventsUser
-      get    'events_users'     => 'events_users#index'
-      post   'events_users'     => 'events_users#create'
-      delete 'events_users/:id' => 'events_users#destroy'
-      get    'events_users/:id' => 'events_users#show'
-      patch  'events_users/:id' => 'events_users#update'
+      get    'events_users'           => 'events_users#index'
+      post   'events_users'           => 'events_users#create'
+      delete 'events_users/:event_id' => 'events_users#destroy'
+      get    'events_users/:id'       => 'events_users#show'
+      patch  'events_users/:id'       => 'events_users#update'
     end
   end
 end

@@ -47,7 +47,13 @@ module Api
       # GET /api/v1/events/:id
       def show
         @event = Event.not_yet_started.find(params[:id])
-        render(json: @event, status: :ok)
+        #render(json: @event, status: :ok)
+      end
+
+      # Custom routes
+      # GET /api/v1/events/:id/guest_list
+      def guest_list
+        @event = Event.not_yet_started.find(params[:id])
       end
 
       private

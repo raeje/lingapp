@@ -66,7 +66,7 @@ User.create!(
   first_name: 'George',
   last_name: 'Costanza',
   email: 'george@lingapp.com',
-  password: 'elaine',
+  password: 'george',
   password_confirmation: 'elaine',
   alias: 'George',
   role: 'volunteer',

@@ -1,6 +1,16 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { EventForm, Events, Home, Login, Notifications } from "./pages";
+import {
+  Event,
+  EventForm,
+  Events,
+  Home,
+  Login,
+  MyEvents,
+  Notifications,
+} from "./pages";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +29,14 @@ const router = createBrowserRouter([
         path: "/events/new",
         element: <EventForm />,
       },
+      {
+        path: "/events/:id",
+        element: <Event />,
+      },
+      {
+        path: "/my-events",
+        element: <MyEvents />,
+      },
     ],
   },
   {
@@ -35,6 +53,18 @@ const App = () => {
   return (
     <>
       <RouterProvider router={router} />
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   );
 };

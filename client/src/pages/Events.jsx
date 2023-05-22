@@ -26,6 +26,7 @@ const Events = () => {
   const fetchData = async () => {
     try {
       const events = await getEvents();
+      console.log(events);
       setEvents(events);
     } catch (error) {
       console.log(error);
@@ -46,7 +47,7 @@ const Events = () => {
   };
 
   return (
-    <div className="h-max w-full overflow-x-hidden pt-1 pb-24 bg-gray-300 ">
+    <div className="h-max w-full overflow-x-hidden pt-1 pb-24 bg-gray-300 flex flex-col items-center">
       <div className="h-56 w-full flex items-center overflow-scroll bg-white px-2 mb-2 gap-2 [&>div]:flex-shrink-0">
         <EventCategoryCard image={All} name="All" filterEvent={filterEvent} />
         <EventCategoryCard

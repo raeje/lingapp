@@ -4,7 +4,7 @@ import { TopBar, NavBar } from "../components";
 
 const Home = () => {
   return (
-    <div className="bg-gray-300 h-screen w-screen max-w-screen ">
+    <div className="bg-gray-300 h-screen w-full max-w-screen overlap-y-hidden">
       <TopBar />
       <Outlet />
       <NavBar />
