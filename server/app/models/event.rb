@@ -61,6 +61,10 @@ class Event < ApplicationRecord
     ends_at < DateTime.now
   end
 
+  def concluded_and_ongoing
+    where('starts_at < ?', DateTime.now)
+  end
+
   def approved_participants
     EventsUser.where('event_id = ? AND is_approved = ?', id, true).count
   end

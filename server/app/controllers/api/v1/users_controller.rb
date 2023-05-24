@@ -6,7 +6,7 @@ module Api
     class UsersController < ApplicationController
       protect_from_forgery with: :null_session
       before_action :authorize_request
-      before_action :authorize_admin_action, only: %i[update create index]
+      before_action :authorize_admin_action, only: %i[create index]
 
       def index
         @users = User.all
@@ -34,23 +34,31 @@ module Api
         end
       end
 
+      # Custom routes
       # GET /api/v1/users/me
       def me
-        @users = User.find(@current_user.id)
-        render json: { data: @users }
+        @user = User.find(@current_user.id)
+        render json: { data: @user }
+      end
+
+      # GET /api/v1/users/:id/achievements
+      def achievements
+        @user = User.find(params[:id])
       end
 
       private
 
       def user_params
-        params.permit(:email,
+        params.permit(:id,
+                      :email,
                       :password,
                       :password_confirmation,
                       :role,
                       :first_name,
                       :last_name,
                       :alias,
-                      :contact_number)
+                      :contact_number,
+                      :badge_title)
       end
     end
   end

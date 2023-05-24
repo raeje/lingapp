@@ -8,9 +8,10 @@ Rails.application.routes.draw do
       put  'login'  => 'authentication#login'
 
       # Users
-      get   'users'     => 'users#index'
-      patch 'users/:id' => 'users#update'
-      get   'users/me'  => 'users#me'
+      get   'users'                 => 'users#index'
+      patch 'users/:id'             => 'users#update'
+      get   'users/:id/achievements' => 'users#achievements'
+      # get   'users/me'  => 'users#me'
       # post 'users/new' => 'users#create'
 
       # Events
@@ -27,6 +28,10 @@ Rails.application.routes.draw do
       delete 'events_users/:event_id' => 'events_users#destroy'
       get    'events_users/:id'       => 'events_users#show'
       patch  'events_users/:id'       => 'events_users#update'
+
+      # UserNotification
+      get 'user_notifications' => 'user_notifications#index'
+      patch 'user_notifications/:id' => 'user_notifications#update'
     end
   end
 end

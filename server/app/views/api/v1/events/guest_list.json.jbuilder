@@ -3,10 +3,10 @@
 # app/views/api/v1/events/guest_list.json.jbuilder
 guests = EventsUser.joins(:user)
                    .where(event_id: @event.id)
-                   .select('events_users.*, users.first_name, users.last_name')
+                   .select('events_users.id AS guest_list_id, events_users.*, users.id, users.first_name, users.last_name, users.role')
 json.set! :guests do
   json.array! guests do |guest|
-    json.id guest.id
+    json.guest_list_id guest.guest_list_id
     json.user_id guest.user_id
     json.first_name guest.first_name
     json.last_name guest.last_name
@@ -16,10 +16,9 @@ json.set! :guests do
 end
 
 json.set! :organizer do
-  user_id = EventsUser.where(event_id: @event.id)
-                      .pluck(:user_id).first
-  user = User.find(user_id)
-  json.id user_id
+  user = guests.where('users.role = ?', 'organizer').first
+  json.id user.id
   json.first_name user.first_name
   json.last_name user.last_name
+  json.role user.role
 end

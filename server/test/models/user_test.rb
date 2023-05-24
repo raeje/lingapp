@@ -4,6 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  alias           :string
+#  badge_title     :string
 #  barangay        :string
 #  city            :string
 #  contact_number  :string
