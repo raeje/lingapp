@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { EventFormGroupLayout } from "../components";
 import { createEvent } from "../helpers/api/lingapp/events";
+import { toast } from "react-toastify";
 
 const initEventForm = {
   barangay: "",
@@ -40,14 +41,18 @@ const EventForm = () => {
   };
 
   const handleCreate = async () => {
-    console.log(eventForm);
     const response = await createEvent(eventForm);
 
     if (response.status === 201) {
-      console.log(response.data);
-      //navigate("/");
+      toast.success(`Created '${eventForm.name}' event!`);
+      setEventForm(initEventForm);
+      navigate("/");
     } else {
-      console.log(response.errors);
+      console.log("ERROR_RESPONSE", response);
+      Object.keys(response?.errors).forEach((key) => {
+        const col = key ? key.toUpperCase() : "";
+        toast.error(`${col.to_i === 0 ? "" : col}  ${response.errors[key]}`);
+      });
     }
   };
 
@@ -161,8 +166,8 @@ const EventForm = () => {
           <option value="animal">Animal</option>
           <option value="cultural">Cultural</option>
           <option value="disaster">Disaster</option>
-          <option value="education">Education</option>
-          <option value="environment">Environment</option>
+          <option value="educational">Education</option>
+          <option value="environmental">Environment</option>
           <option value="health">Health</option>
           <option value="social">Social</option>
         </select>

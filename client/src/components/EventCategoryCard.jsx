@@ -3,7 +3,7 @@ import React from "react";
 const EventCategoryCard = ({ image, name, filterEvent }) => {
   return (
     <div
-      className="h-52 w-32 border-1 border-gray-400 rounded-2xl overflow-hidden relative drop-shadow-md"
+      className="h-52 w-32 border-1 border-gray-400 rounded-2xl overflow-hidden relative shadow-md shadow-black"
       onClick={() => filterEvent(name)}
     >
       <img

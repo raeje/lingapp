@@ -1,11 +1,16 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
+  Achievements,
   Event,
+  EventAttendance,
+  EventChat,
+  EventInfo,
   EventForm,
   Events,
   Home,
   Login,
+  MyCalendar,
   MyEvents,
   Notifications,
 } from "./pages";
@@ -32,10 +37,32 @@ const router = createBrowserRouter([
       {
         path: "/events/:id",
         element: <Event />,
+        children: [
+          {
+            path: "/events/:id/info",
+            element: <EventInfo />,
+          },
+          {
+            path: "/events/:id/attendance",
+            element: <EventAttendance />,
+          },
+          {
+            path: "/events/:id/chat",
+            element: <EventChat />,
+          },
+        ],
       },
       {
         path: "/my-events",
         element: <MyEvents />,
+      },
+      {
+        path: "/my-calendar",
+        element: <MyCalendar />,
+      },
+      {
+        path: "/users/:id/achievements",
+        element: <Achievements />,
       },
     ],
   },

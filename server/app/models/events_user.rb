@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: events_users
@@ -18,6 +20,8 @@ class EventsUser < ApplicationRecord
 
   belongs_to :event
   belongs_to :user
+
+  has_many :messages, dependent: :delete_all
 
   validate :validate_event_concluded
 

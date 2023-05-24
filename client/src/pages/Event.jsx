@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { GuestListTable } from "../components";
-import { useParams, useNavigate } from "react-router-dom";
-import { getEvent, getGuestList } from "../helpers/api/lingapp/events";
-import { joinEvent, leaveEvent } from "../helpers/api/lingapp/events_user";
+import { Outlet, useParams, useNavigate, NavLink } from "react-router-dom";
+import { getEvent } from "../helpers/api/lingapp/events";
+
+import {
+  InformationCircleIcon,
+  ClipboardDocumentCheckIcon,
+  ChatBubbleLeftRightIcon,
+} from "@heroicons/react/24/outline";
 import { useJwt } from "react-jwt";
 import { getItem } from "../helpers/localStorage";
-import {
-  DocumentTextIcon,
-  TagIcon,
-  UserIcon,
-  MapIcon,
-  MapPinIcon,
-} from "@heroicons/react/24/outline";
-import { toast } from "react-toastify";
 
 const formatDate = (datetimeString) => {
   const date = new Date(datetimeString).toDateString().substring(4);
@@ -32,72 +28,74 @@ const Event = () => {
   const { id } = useParams();
   const { decodedToken } = useJwt(getItem("Authorization"));
   const [event, setEvent] = useState([]);
-  const [guestList, setGuestList] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
-    fetchGuestList();
   }, []);
 
   const fetchData = async () => {
     try {
       const event = await getEvent(id);
+      console.log(event);
       setEvent(event);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const fetchGuestList = async () => {
-    try {
-      const guestList = await getGuestList(id);
-      setGuestList(guestList);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const EventTabs = ({ isEventOrganizer, isApproved }) => {
+    const LINK_ACTIVE_CLASS_NAME =
+      "bg-white w-full flex items-center pl-2 text-xs text-center rounded-t-2xl font-bold";
+    const LINK_INACTIVE_CLASS_NAME =
+      "bg-gray-200 w-full flex items-center pl-2 text-xs text-center rounded-t-2xl";
 
-  const handleJoinEvent = async () => {
-    const response = await joinEvent(id);
-
-    if ((await response.status) === 201) {
-      toast.success("Join request sent!");
-      fetchData();
-    } else {
-      toast.error(response.errors);
-    }
-  };
-
-  const RequestJoinEventButton = () => {
     return (
-      <button
-        className="p-4 bg-red-500 rounded-lg text-white font-bold text-xl"
-        onClick={handleJoinEvent}
-      >
-        Sign me up!
-      </button>
-    );
-  };
+      <div className="h-10 w-full bg-gray-300 mt-1 flex text-center ">
+        <NavLink
+          to={{
+            pathname: `/events/${id}/info`,
+          }}
+          className={({ isActive }) =>
+            isActive ? LINK_ACTIVE_CLASS_NAME : LINK_INACTIVE_CLASS_NAME
+          }
+        >
+          <InformationCircleIcon className="h-5 w-5 mr-1" />
+          INFO
+        </NavLink>
 
-  const handleLeaveEvent = async () => {
-    const response = await leaveEvent(id);
-    if (response.status === 200) {
-      toast.info(response.data.message);
-      fetchData();
-    } else {
-      toast.error(response.errors);
-    }
-  };
+        {isEventOrganizer ? (
+          <NavLink
+            to={{
+              pathname: `/events/${id}/attendance`,
+            }}
+            className={({ isActive }) =>
+              isActive ? LINK_ACTIVE_CLASS_NAME : LINK_INACTIVE_CLASS_NAME
+            }
+          >
+            <ClipboardDocumentCheckIcon className="h-5 w-5 mr-1" />
+            ATTENDANCE
+          </NavLink>
+        ) : (
+          ""
+        )}
 
-  const CancelRequestEventButton = () => {
-    return (
-      <button
-        className="p-4 bg-gray-500 rounded-lg text-white font-bold text-xl"
-        onClick={handleLeaveEvent}
-      >
-        Cancel event participation
-      </button>
+        {isApproved ? (
+          <NavLink
+            to={{
+              pathname: `/events/${id}/chat`,
+            }}
+            className={({ isActive }) =>
+              isActive ? LINK_ACTIVE_CLASS_NAME : LINK_INACTIVE_CLASS_NAME
+            }
+          >
+            <ChatBubbleLeftRightIcon className="h-5 w-5 mr-1" />
+            CHAT
+          </NavLink>
+        ) : (
+          ""
+        )}
+      </div>
     );
   };
 
@@ -118,107 +116,21 @@ const Event = () => {
         </div>
       </div>
 
-      {/* Event Details */}
-      <div className="h-max w-full bg-white p-2 flex flex-col mb-2">
-        <span className="font-bold text-lg mb-2">Event Details</span>
+      <EventTabs
+        isEventOrganizer={decodedToken?.user_id === event?.organizer?.id}
+        isApproved={event?.is_approved}
+      />
 
-        <div className="flex content-center items-center">
-          <DocumentTextIcon className="h-4 w-4 mr-2" />
-          <span className="text-gray-500 ">Description</span>
-        </div>
-        <span className="p-2 bg-gray-50 rounded-md mb-2">
-          {event.description}
-        </span>
-
-        <div className="flex content-center items-center">
-          <TagIcon className="h-4 w-4 mr-2" />
-          <span className="text-gray-500 ">Category</span>
-        </div>
-        <span className="p-2 bg-gray-50 rounded-md mb-2">{event.category}</span>
-
-        <div className="flex content-center items-center">
-          <UserIcon className="h-4 w-4 mr-2" />
-          <span className="text-gray-500 ">Organizer</span>
-        </div>
-        <span className="p-2 bg-gray-50 rounded-md mb-2">
-          {event.organizer?.first_name} {event.organizer?.last_name}
-        </span>
-      </div>
-
-      {/* Location */}
-      <div className="h-max w-full bg-white p-2 flex flex-col mb-2">
-        <span className="font-bold text-lg mb-2">Location</span>
-
-        <div className="flex content-center items-center">
-          <MapIcon className="h-4 w-4 mr-2" />
-          <span className="text-gray-500 ">Address</span>
-        </div>
-        <span className="p-2 bg-gray-50 rounded-md mb-2">
-          {`${event.house}, Barangay ${event.barangay}, ${event.city} City`}
-        </span>
-
-        <div className="flex content-center items-center">
-          <MapPinIcon className="h-4 w-4 mr-2" />
-          <span className="text-gray-500 ">Landmark</span>
-        </div>
-        <span className="p-2 bg-gray-50 rounded-md mb-2">
-          {`${event.landmark || "not specified"}`}
-        </span>
-      </div>
-
-      {/* Guest List */}
-      <div className="h-max w-full bg-white p-2 flex flex-col mb-2">
-        <span className="font-bold text-lg mb-2">Guest List</span>
-
-        <div className="grid grid-cols-3 gap-2 mb-4">
-          <div className="flex flex-col content-center items-center py-1">
-            <span className="font-extrabold text-lg">
-              {event.guest_list?.approved_count || 0}
-            </span>
-            <span className="text-gray-600">GOING</span>
-          </div>
-
-          <div className="flex flex-col content-center items-center py-1">
-            <span className="font-extrabold text-lg">
-              {event.guest_list?.pending_count || 0}
-            </span>
-            <span className="text-gray-600">PENDING</span>
-          </div>
-
-          <div className="flex flex-col content-center items-center py-1">
-            <span className="font-extrabold text-lg">
-              {event.maximum_participants}
-            </span>
-            <span className="text-gray-600">MAX</span>
-          </div>
-        </div>
-
-        <GuestListTable title="Going" dataset={guestList} eventId={id} />
-        <GuestListTable
-          title="Pending"
-          dataset={guestList}
-          eventId={id}
-          setParentGuestList={setGuestList}
-        />
-      </div>
+      <Outlet />
 
       {/* Actions */}
       <div className="h-max w-full bg-white p-4 flex flex-col mb-2 gap-2">
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/")}
           className="p-4 bg-red-300 rounded-lg text-white font-bold text-xl"
         >
           Back
         </button>
-        {decodedToken?.role === "volunteer" ? (
-          !event.has_applied ? (
-            <RequestJoinEventButton />
-          ) : (
-            <CancelRequestEventButton />
-          )
-        ) : (
-          ""
-        )}
       </div>
     </div>
   );

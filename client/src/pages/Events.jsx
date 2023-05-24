@@ -26,7 +26,6 @@ const Events = () => {
   const fetchData = async () => {
     try {
       const events = await getEvents();
-      console.log(events);
       setEvents(events);
     } catch (error) {
       console.log(error);

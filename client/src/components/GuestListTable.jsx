@@ -8,7 +8,7 @@ import { getItem } from "../helpers/localStorage";
 const GuestListTable = ({ title, dataset, eventId, setParentGuestList }) => {
   const { decodedToken } = useJwt(getItem("Authorization"));
   const isVisibleClass =
-    title === "Going" ||
+    title === "Approved" ||
     decodedToken?.role === "volunteer" ||
     dataset?.organizer?.id !== decodedToken?.user_id
       ? "hidden"
@@ -25,13 +25,16 @@ const GuestListTable = ({ title, dataset, eventId, setParentGuestList }) => {
   };
 
   const filterGuestList = (data) => {
-    return title === "Going"
+    return title === "Approved"
       ? data.filter((guest) => guest.is_approved)
       : data.filter((guest) => !guest.is_approved);
   };
 
   const handleApprove = async (guest) => {
-    const response = await updateGuestList({ id: guest.id, is_approved: true });
+    const response = await updateGuestList({
+      id: guest.guest_list_id,
+      is_approved: true,
+    });
     fetchGuestList();
 
     if (response.status === 200) {
@@ -72,7 +75,10 @@ const GuestListTable = ({ title, dataset, eventId, setParentGuestList }) => {
   };
 
   return (
-    <div className="h-max w-full border-t-2 border-gray-200 py-2">
+    <div
+      className="h-max w-full border-t-2 border-gray-200 py-2"
+      key={`${title}-${eventId}`}
+    >
       <span className="text-sm font-bold mb-2">{title}</span>
       <table className="w-full mb-2">
         <thead>

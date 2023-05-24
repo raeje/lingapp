@@ -8,8 +8,8 @@ Rails.application.routes.draw do
       put  'login'  => 'authentication#login'
 
       # Users
-      get   'users'                 => 'users#index'
-      patch 'users/:id'             => 'users#update'
+      get   'users'                  => 'users#index'
+      patch 'users/:id'              => 'users#update'
       get   'users/:id/achievements' => 'users#achievements'
       # get   'users/me'  => 'users#me'
       # post 'users/new' => 'users#create'
@@ -30,8 +30,12 @@ Rails.application.routes.draw do
       patch  'events_users/:id'       => 'events_users#update'
 
       # UserNotification
-      get 'user_notifications' => 'user_notifications#index'
+      get 'user_notifications'       => 'user_notifications#index'
       patch 'user_notifications/:id' => 'user_notifications#update'
+
+      # Message
+      get  'messages' => 'messages#index'
+      post 'messages' => 'messages#create'
     end
   end
 end

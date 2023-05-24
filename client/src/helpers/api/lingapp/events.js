@@ -101,7 +101,7 @@ const createEvent = async ({
       }
     )
     .then((response) => {
-      return response.data;
+      return response;
     })
     .catch((errors) => {
       return errors.response.data;

@@ -41,12 +41,12 @@ const EventCard = ({ event }) => {
 
   return (
     <div
-      className="h-96 w-full md:h-1/3 md:w-2/3 md:rounded-lg bg-white py-2 mb-2 z-10 box-border "
+      className="h-96 w-full md:h-1/3 md:w-2/3 md:rounded-lg bg-white py-2 mb-2 z-10 box-border shadow-md shadow-black"
       key={event.id}
     >
-      <div className="h-20 w-full p-2 grid grid-cols-4">
+      <div className="h-20 w-full p-2 grid grid-cols-5">
         <h1 className="font-bold col-span-3 text-xl">{event.name}</h1>
-        <span className="font-bold text-sm text-red-400 text-right">
+        <span className="font-bold col-span-2 text-sm text-red-400 text-right">
           {event.category.toUpperCase()}
         </span>
 
@@ -57,7 +57,7 @@ const EventCard = ({ event }) => {
           <span className="text-xs">{formatDate(event.ends_at)}</span>
         </div>
 
-        <span className="text-xs text-gray-400 text-right ">
+        <span className="col-span-2 text-xs text-gray-400 text-right ">
           {event.organizer.first_name} {event.organizer.last_name}
         </span>
       </div>
@@ -65,7 +65,7 @@ const EventCard = ({ event }) => {
       <NavLink
         exact="true"
         to={{
-          pathname: `/events/${event.id}`,
+          pathname: `/events/${event.id}/info`,
         }}
       >
         <img
