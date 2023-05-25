@@ -6,7 +6,8 @@ import { toast } from "react-toastify";
 import { getItem } from "../helpers/localStorage";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 
-const DIMENSIONS_CLASS = "py-2 px-4 h-14 w-4/5 text-xl rounded-md max-w-lg";
+const DIMENSIONS_CLASS =
+  "py-2 px-4 h-14 w-4/5 text-xl rounded-md max-w-lg md:w-1/2 lg:w-1/2";
 
 const initSignupForm = {
   firstName: "",
@@ -116,7 +117,7 @@ const Signup = () => {
         {currentStep === 2 && (
           <div className="w-full flex flex-col place-items-center py-4 gap-4">
             <RegistrationStepTitle title="Account Information" />
-            <div className="w-4/5">
+            <div className="py-2 h-14 w-4/5 text-xl rounded-md max-w-lg md:w-1/2 lg:w-1/2">
               <div className="flex text ">
                 <input
                   id="volunteer"
@@ -153,7 +154,7 @@ const Signup = () => {
             </div>
             <input
               type="text"
-              className={DIMENSIONS_CLASS}
+              className={`${DIMENSIONS_CLASS}`}
               placeholder="Email"
               name="email"
               onChange={handleFormChange}
@@ -212,11 +213,11 @@ const Signup = () => {
 
         {/* 4 Review */}
         {currentStep === 4 && (
-          <div className="w-full flex flex-col place-items-center py-4 gap-4">
+          <div className="w-full flex flex-col place-items-center py-4 gap-2">
             <RegistrationStepTitle title="Review" />
-            <div className="w-4/5 flex flex-col gap-4">
-              <div className="w-full flex flex-col place-items-center  gap-1">
-                <span className="w-full text-sm bg-red-600 px-2 py-1 text-white rounded-xl text-center font-bold">
+            <div className="w-4/5 flex flex-col gap-2">
+              <div className="w-full flex flex-col place-items-center gap-1">
+                <span className="w-full text-sm px-2 text-white rounded-xl text-center ">
                   User Information
                 </span>
                 <span className="w-full bg-gray-200 px-4 py-1 rounded-xl">
@@ -226,8 +227,8 @@ const Signup = () => {
                 </span>
               </div>
 
-              <div className="w-full flex flex-col place-items-center  gap-1">
-                <span className="w-full text-sm bg-red-600 px-2 py-1 text-white rounded-xl text-center font-bold">
+              <div className="w-full flex flex-col place-items-center gap-1">
+                <span className="w-full text-sm px-2 text-white rounded-xl text-center ">
                   Account Information
                 </span>
                 <span className="w-full bg-gray-200 px-4 py-1 rounded-xl">
@@ -239,7 +240,7 @@ const Signup = () => {
               </div>
 
               <div className="w-full flex flex-col place-items-center  gap-1">
-                <span className="w-full text-sm bg-red-600 px-2 py-1 text-white rounded-xl text-center font-bold">
+                <span className="w-full text-sm px-2 text-white rounded-xl text-center ">
                   Additional Information
                 </span>
                 <span className="w-full bg-gray-200 px-4 py-1 rounded-xl">
@@ -254,33 +255,33 @@ const Signup = () => {
             </div>
           </div>
         )}
-      </div>
 
-      <div className="w-4/5 flex place-items-center gap-4 -mt-4">
-        <button
-          name="back"
-          className={`${DIMENSIONS_CLASS} bg-red-300 text-white flex justify-center align-center`}
-          onClick={handleBack}
-        >
-          <ChevronLeftIcon className="h-10 w-10 font-bold" />
-        </button>
-        {currentStep < TOTAL_STEPS ? (
+        <div className="py-2 h-14 w-4/5 text-xl rounded-md max-w-lg md:w-1/2 lg:w-1/2 flex flex-cols place-items-center gap-4 mt-1 ">
           <button
-            name="next"
-            className={`${DIMENSIONS_CLASS} bg-red-300 text-white flex justify-center align-center`}
-            onClick={handleNext}
+            name="back"
+            className={`w-full bg-red-300 text-white flex justify-center align-center py-2 px-4 h-14 text-xl rounded-md max-w-lg`}
+            onClick={handleBack}
           >
-            <ChevronRightIcon className="h-10 w-10 font-bold" />
+            <ChevronLeftIcon className="h-10 w-10 font-bold" />
           </button>
-        ) : (
-          <button
-            name="login"
-            className={`${DIMENSIONS_CLASS} bg-red-800 text-white`}
-            onClick={handleSignup}
-          >
-            SIGN UP!
-          </button>
-        )}
+          {currentStep < TOTAL_STEPS ? (
+            <button
+              name="next"
+              className={`w-full bg-red-300 text-white flex justify-center align-center py-2 px-4 h-14 text-xl rounded-md max-w-lg`}
+              onClick={handleNext}
+            >
+              <ChevronRightIcon className="h-10 w-10 font-bold" />
+            </button>
+          ) : (
+            <button
+              name="login"
+              className={`w-full bg-red-700 text-white flex justify-center align-center py-2 px-4 h-14 text-2xl rounded-md max-w-lg`}
+              onClick={handleSignup}
+            >
+              SIGN UP!
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="fixed bottom-10">
