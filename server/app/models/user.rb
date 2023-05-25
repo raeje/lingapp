@@ -24,6 +24,7 @@
 class User < ApplicationRecord
   has_many :events_users
   has_many :events, through: :events_users
+  has_many :messages, through: :events_users
 
   # Add methods to set and authenticate against a BCrypt password.
   include BCrypt

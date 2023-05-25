@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../helpers/api/lingapp/authentication";
 import logo from "../images/lingapp-logo-reverse.png";
-import { setItem } from "../helpers/localStorage";
+import { getItem, setItem } from "../helpers/localStorage";
 import { toast } from "react-toastify";
 
 const DIMENSIONS_CLASS = "py-2 px-4 h-14 w-4/5 text-xl rounded-md max-w-lg";
@@ -16,6 +16,14 @@ const Login = () => {
   const [loginForm, setLoginForm] = useState(initLoginForm);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const currentUser = getItem("Authorization");
+
+    if (currentUser) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -72,11 +80,16 @@ const Login = () => {
         className={`${DIMENSIONS_CLASS} bg-red-300 text-white`}
         onClick={handleLogin}
       >
-        Log In
+        LOGIN
       </button>
 
       <div className="fixed bottom-10">
-        <span className="text-white text-lg">Sign Up for Lingapp</span>
+        <span
+          className="text-white text-lg"
+          onClick={() => navigate("/signup")}
+        >
+          Sign Up for Lingapp
+        </span>
       </div>
     </div>
   );

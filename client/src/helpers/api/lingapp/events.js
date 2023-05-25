@@ -23,6 +23,25 @@ const getEvent = async (id) => {
     });
 };
 
+const getEvents = async () => {
+  const Authorization = getItem("Authorization");
+  return await axios
+    .get(`${LINGAPP_URL}/events`, {
+      headers: {
+        "Content-Type": CONTENT_TYPE,
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        Authorization,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((errors) => {
+      return errors.response.data;
+    });
+};
+
 const getGuestList = async (id) => {
   const Authorization = getItem("Authorization");
   return await axios
@@ -42,10 +61,10 @@ const getGuestList = async (id) => {
     });
 };
 
-const getEvents = async () => {
+const getMessages = async (id) => {
   const Authorization = getItem("Authorization");
   return await axios
-    .get(`${LINGAPP_URL}/events`, {
+    .get(`${LINGAPP_URL}/events/${id}/messages`, {
       headers: {
         "Content-Type": CONTENT_TYPE,
         Accept: "application/json",
@@ -54,6 +73,7 @@ const getEvents = async () => {
       },
     })
     .then((response) => {
+      console.log(response.data);
       return response.data;
     })
     .catch((errors) => {
@@ -108,4 +128,4 @@ const createEvent = async ({
     });
 };
 
-export { getEvent, getEvents, createEvent, getGuestList };
+export { getEvent, getEvents, createEvent, getGuestList, getMessages };

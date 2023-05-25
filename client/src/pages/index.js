@@ -10,6 +10,7 @@ import Login from "./Login";
 import MyCalendar from "./MyCalendar";
 import MyEvents from "./MyEvents";
 import Notifications from "./Notifications";
+import Signup from "./Signup";
 
 export {
   Achievements,
@@ -24,4 +25,5 @@ export {
   MyCalendar,
   MyEvents,
   Notifications,
+  Signup,
 };

@@ -13,6 +13,7 @@ import {
   MyCalendar,
   MyEvents,
   Notifications,
+  Signup,
 } from "./pages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -68,7 +69,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <></>,
+    element: <Signup />,
   },
   {
     path: "/login",

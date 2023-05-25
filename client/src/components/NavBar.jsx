@@ -13,7 +13,8 @@ import { useJwt } from "react-jwt";
 import { getItem } from "../helpers/localStorage";
 import { getUserNotifications } from "../helpers/api/lingapp/user_notifications";
 
-const POLLING_TIMEOUT_SECS = 300;
+const POLLING_TIMEOUT_SECS =
+  Number(process.env.REACT_APP_POLLING_TIMEOUT_SECS) || 10;
 
 const NavBar = () => {
   const { decodedToken } = useJwt(getItem("Authorization"));

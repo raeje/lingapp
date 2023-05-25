@@ -61,7 +61,11 @@ module Api
                       :first_name,
                       :last_name,
                       :alias,
-                      :contact_number)
+                      :contact_number,
+                      :city,
+                      :barangay,
+                      :house,
+                      :landmark)
       end
     end
   end

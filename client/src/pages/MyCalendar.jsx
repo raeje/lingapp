@@ -92,7 +92,8 @@ const MyCalendar = () => {
   const fetchData = async () => {
     try {
       const events = await getEvents();
-      const formattedEvents = await events.map((event) => {
+      const myEvents = await events.filter((event) => event.has_applied);
+      const formattedEvents = await myEvents.map((event) => {
         return {
           title: event.name,
           start: new Date(event.starts_at),

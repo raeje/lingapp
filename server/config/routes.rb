@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       # Users
       get   'users'                  => 'users#index'
       patch 'users/:id'              => 'users#update'
+      # Users custom route
       get   'users/:id/achievements' => 'users#achievements'
       # get   'users/me'  => 'users#me'
       # post 'users/new' => 'users#create'
@@ -20,7 +21,8 @@ Rails.application.routes.draw do
       get   'events/:id' => 'events#show'
       patch 'events/:id' => 'events#update'
       # Events custom route
-      get   'events/:id/guest_list/' => 'events#guest_list'
+      get 'events/:id/guest_list' => 'events#guest_list'
+      get 'events/:id/messages'   => 'events#messages'
 
       # EventsUser
       get    'events_users'           => 'events_users#index'
@@ -34,7 +36,6 @@ Rails.application.routes.draw do
       patch 'user_notifications/:id' => 'user_notifications#update'
 
       # Message
-      get  'messages' => 'messages#index'
       post 'messages' => 'messages#create'
     end
   end

@@ -3,19 +3,29 @@ import axios from "axios";
 const LINGAPP_URL = process.env.REACT_APP_LINGAPP_URL;
 
 const signup = async ({
-  name,
+  firstName,
+  lastName,
   role,
   email,
   password,
-  password_confirmation,
+  passwordConfirmation,
+  city,
+  barangay,
+  house,
+  landmark,
 }) => {
   return await axios
     .post(`${LINGAPP_URL}/signup`, {
-      name,
+      first_name: firstName,
+      last_name: lastName,
       email,
       password,
-      password_confirmation,
+      password_confirmation: passwordConfirmation,
       role,
+      city,
+      barangay,
+      house,
+      landmark,
     })
     .then((response) => {
       return response;

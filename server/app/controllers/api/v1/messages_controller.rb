@@ -7,22 +7,15 @@ module Api
       protect_from_forgery
       before_action :authorize_request
 
-      # GET /api/v1/messages
-      def index
-        events_user_id = params[:events_user_id]
-
-        if Message.user_approved?(events_user_id)
-          @messages = Message.where(events_user_id:)
-          render(json: @messages, status: :ok)
-        else
-          render(json: { errors: { base: ['The chat group is exclusive to attendees only.'] } }, status: :unprocessable_entity)
-        end
-      end
-
       # POST /api/v1/messages
       def create
-        @message = Message.new(messages_params)
+        events_user = EventsUser.find_by(event_id: params[:event_id], user_id:)
+        if events_user.nil?
+          render(json: { errors: { base: ['The chat group is exclusive to attendees only.'] } }, status: :unprocessable_entity)
+          return
+        end
 
+        @message = Message.new(body: params[:body], events_user_id: events_user.id)
         if @message.save
           render(json: @message, status: :created)
         else
@@ -32,8 +25,12 @@ module Api
 
       private
 
+      def user_id
+        @current_user.id
+      end
+
       def messages_params
-        params.permit(:body, :is_read, :events_user_id)
+        params.permit(:body, :is_read)
       end
     end
   end

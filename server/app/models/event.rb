@@ -22,6 +22,7 @@
 class Event < ApplicationRecord
   has_many :events_users
   has_many :users, through: :events_users
+  has_many :messages, through: :events_users
   has_one_attached :image, dependent: :destroy
 
   after_commit :add_default_image, on: %i[create update]

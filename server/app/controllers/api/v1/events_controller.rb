@@ -56,6 +56,11 @@ module Api
         @event = Event.not_yet_started.find(params[:id])
       end
 
+      # GET /api/v1/events/:id/messages
+      def messages
+        @event = Event.not_yet_started.find(params[:id])
+      end
+
       private
 
       def event_params
