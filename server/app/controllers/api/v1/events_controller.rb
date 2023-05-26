@@ -9,14 +9,10 @@ module Api
       before_action only: %i[create update] do
         authorize_action('organizer')
       end
-      before_action only: %i[join] do
-        authorize_action('volunteer')
-      end
 
       # GET /api/v1/events
       def index
         @events = Event.not_yet_started.sort_by(&:created_at).reverse
-        # render(json: @events, status: :ok)
       end
 
       # POST /api/v1/events
@@ -47,7 +43,6 @@ module Api
       # GET /api/v1/events/:id
       def show
         @event = Event.not_yet_started.find(params[:id])
-        #render(json: @event, status: :ok)
       end
 
       # Custom routes

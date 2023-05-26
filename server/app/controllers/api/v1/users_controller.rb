@@ -6,12 +6,7 @@ module Api
     class UsersController < ApplicationController
       protect_from_forgery with: :null_session
       before_action :authorize_request
-      before_action :authorize_admin_action, only: %i[create index]
 
-      def index
-        @users = User.all
-        render json: { data: @users }
-      end
 
       # PATCH /api/v1/users/update/:id
       def update
@@ -23,24 +18,7 @@ module Api
         end
       end
 
-      # POST /api/v1/users/new
-      def create
-        @user = User.new(user_params)
-
-        if @user.save
-          render(json: { message: "User #{@user.email} created!" }, status: :created)
-        else
-          render(json: { errors: @user.errors }, status: :unprocessable_entity)
-        end
-      end
-
       # Custom routes
-      # GET /api/v1/users/me
-      def me
-        @user = User.find(@current_user.id)
-        render json: { data: @user }
-      end
-
       # GET /api/v1/users/:id/achievements
       def achievements
         @user = User.find(params[:id])

@@ -72,7 +72,11 @@ RSpec.configure do |config|
 
   # Include helpers
   config.include FactoryBot::Syntax::Methods
+
+  config.include ApiHelpers
   config.include JsonHelpers
-  config.include UsersHelpers
+
+  config.include EventsHelpers
   config.include LoginHelpers
+  config.include UsersHelpers
 end

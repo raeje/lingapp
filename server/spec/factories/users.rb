@@ -21,15 +21,6 @@
 #
 FactoryBot.define do
   factory :user do
-    # Full name will be split into two
-    full_name = Faker::TvShows::GameOfThrones.character
-    # User Info
-    first_name { full_name.split(' ').first }
-    last_name  { full_name.split(' ').second || Faker::Name.last_name }
-    # Account Info
-    email      { "#{first_name}.#{last_name}@lingapp.com".downcase }
-    password   { first_name }
-    password_confirmation { first_name }
     # Additional Info
     city       { Faker::TvShows::GameOfThrones.city }
     barangay   { Faker::JapaneseMedia::Naruto.village }
@@ -41,13 +32,34 @@ FactoryBot.define do
     end
 
     trait :volunteer do
+      # Full name will be split into two
+      full_name = Faker::TvShows::GameOfThrones.character
+      # User Info
+      first_name { full_name.split(' ').first }
+      last_name  { full_name.split(' ').second || Faker::Name.last_name }
+      contact_number { Faker::PhoneNumber.cell_phone }
+      # Account Info
+      email      { "#{first_name}.#{last_name}@lingapp.com".downcase }
+      password   { first_name }
+      password_confirmation { first_name }
       role { 'volunteer' }
     end
 
     trait :organizer do
+      # Full name will be split into two
+      full_name = Faker::JapaneseMedia::Naruto.character
+      # User Info
+      first_name { full_name.split(' ').first }
+      last_name  { full_name.split(' ').second || Faker::Name.last_name }
+      contact_number { Faker::PhoneNumber.cell_phone }
+      # Account Info
+      email      { "#{first_name}.#{last_name}@lingapp.com".downcase }
+      password   { first_name }
+      password_confirmation { first_name }
       role { 'organizer' }
     end
 
+    factory :user_organizer, traits: [:organizer]
     factory :user_volunteer, traits: [:volunteer]
   end
 end
