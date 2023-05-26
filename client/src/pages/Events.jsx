@@ -46,8 +46,8 @@ const Events = () => {
   };
 
   return (
-    <div className="h-max w-full overflow-x-hidden pt-1 pb-24 bg-gray-300 flex flex-col items-center">
-      <div className="h-56 w-full flex items-center overflow-scroll bg-white px-2 mb-2 gap-2 [&>div]:flex-shrink-0">
+    <div className="h-full w-full md:gap-4 overflow-x-hidden pt-1 pb-24 bg-gray-200 flex flex-col items-center [&>div]:flex-shrink-0">
+      <div className="h-56 w-full md:h-max md:justify-center flex items-center overflow-scroll bg-white px-2 mb-2 gap-2 [&>div]:flex-shrink-0 z-30">
         <EventCategoryCard image={All} name="All" filterEvent={filterEvent} />
         <EventCategoryCard
           image={Animal}

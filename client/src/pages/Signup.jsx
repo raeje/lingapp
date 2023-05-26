@@ -213,7 +213,7 @@ const Signup = () => {
 
         {/* 4 Review */}
         {currentStep === 4 && (
-          <div className="w-full flex flex-col place-items-center py-4 gap-2">
+          <div className="w-full flex flex-col place-items-center py-4 gap-2 md:w-1/2 md:px-10">
             <RegistrationStepTitle title="Review" />
             <div className="w-4/5 flex flex-col gap-2">
               <div className="w-full flex flex-col place-items-center gap-1">

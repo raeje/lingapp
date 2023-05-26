@@ -41,7 +41,7 @@ const EventCard = ({ event }) => {
 
   return (
     <div
-      className="h-96 w-full md:h-1/3 md:w-2/3 md:rounded-lg bg-white py-2 mb-2 z-10 box-border shadow-md shadow-black"
+      className="h-96 w-full md:w-1/2 md:rounded-lg bg-white py-2 mb-2 z-10 box-border shadow-md shadow-black"
       key={event.id}
     >
       <div className="h-20 w-full p-2 grid grid-cols-5">

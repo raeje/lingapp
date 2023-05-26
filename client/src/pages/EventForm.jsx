@@ -57,8 +57,8 @@ const EventForm = () => {
   };
 
   return (
-    <div className="h-max w-full md:w-80 px-2 pt-2 pb-24 mb-8 bg-white">
-      <h1 className="text-xl font-bold pb-4 border-b border-gray-200">
+    <div className="h-max w-full md:w-1/2 md:mt-2 md:rounded-lg px-2 pt-2 pb-24 mb-8 bg-white flex flex-col items-center">
+      <h1 className="w-full text-xl text-center font-bold pb-4 border-b border-gray-200">
         Community Event Form
       </h1>
       <EventFormGroupLayout name="Basic Information">
@@ -173,9 +173,9 @@ const EventForm = () => {
         </select>
       </EventFormGroupLayout>
 
-      <div className="h-max p-2 border-b border-gray-200 grid place-items-center">
+      <div className="h-max w-full p-2 border-b border-gray-200 grid place-items-center">
         <button
-          className="bg-red-400 border border-red-400 rounded-full py-2 px-4 text-xl text-white font-bold my-2"
+          className="w-full bg-red-400 border border-red-400 rounded-lg py-2 px-4 text-xl text-white font-bold my-2"
           onClick={handleCreate}
         >
           Create Event

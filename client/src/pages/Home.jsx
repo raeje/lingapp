@@ -16,7 +16,7 @@ const Home = () => {
   }, [navigate]);
 
   return (
-    <div className="bg-gray-300 h-screen w-full max-w-screen overlap-y-hidden">
+    <div className="bg-gray-200 h-screen w-full max-w-screen overlap-y-hidden flex flex-col items-center">
       <TopBar />
       <Outlet />
       <NavBar />

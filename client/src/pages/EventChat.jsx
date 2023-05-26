@@ -91,10 +91,7 @@ const EventChat = () => {
 
     const NameAndTimeElapsed = ({ message, isCurrentUser }) => {
       return (
-        <div
-          className="flex gap-1 absolute -top-1 bg-gray-300 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10
-        px-1 rounded-sm"
-        >
+        <div className="flex gap-1 absolute -top-1 bg-gray-300 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 px-1 rounded-sm">
           <span className="text-xs font-bold ">
             {isCurrentUser ? "ME" : message.user_full_name}
           </span>
@@ -111,7 +108,7 @@ const EventChat = () => {
       >
         <NameAndTimeElapsed message={message} isCurrentUser={isCurrentUser} />
         <span
-          className={`w-fit max-w-xs flex text-md px-3 py-2 my-3 rounded-2xl shadow-md shadow-gray-600 ${bubbleModifier}`}
+          className={`w-fit max-w-xs min-w-max flex text-md px-3 py-2 my-3 rounded-2xl shadow-md shadow-gray-600 ${bubbleModifier}`}
         >
           {message.body}
         </span>
@@ -120,10 +117,9 @@ const EventChat = () => {
   };
 
   return (
-    <div className="h-96 w-full bg-white mb-1 flex flex-col p-2">
+    <div className="h-96 w-full bg-red-50 mb-1 flex flex-col p-2">
       <div
-        className="h-5/6 w-full flex flex-col px-2 overflow-y-scroll relative bg-cover bg-no-repeat bg-center bg-image bg-opacity-75"
-        style={{ backgroundImage: `url(${logo})` }}
+        className="h-5/6 w-full flex flex-col px-2 overflow-y-auto relative bg-red-50"
         ref={messagesContainerRef}
       >
         {messages.map((message) => {
@@ -135,7 +131,7 @@ const EventChat = () => {
           );
         })}
       </div>
-      <div className="h-1/6 w-full p-2 bg-gray-100 rounded-xl flex">
+      <div className="h-1/6 w-full p-2 bg-gray-100 border-2 border-gray-300 rounded-xl flex">
         <textarea
           id="message"
           rows="1"

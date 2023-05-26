@@ -100,7 +100,7 @@ const Event = () => {
   };
 
   return (
-    <div className="h-max w-full overflow-x-hidden pb-24 bg-gray-300 ">
+    <div className="h-max w-full md:w-1/2 overflow-x-hidden pb-24 bg-gray-300 ">
       {/* Event Header */}
       <div className="relative mb-2">
         <img
