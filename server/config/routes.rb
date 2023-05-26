@@ -12,8 +12,6 @@ Rails.application.routes.draw do
       patch 'users/:id'              => 'users#update'
       # Users custom route
       get   'users/:id/achievements' => 'users#achievements'
-      # get   'users/me'  => 'users#me'
-      # post 'users/new' => 'users#create'
 
       # Events
       get   'events'     => 'events#index'
