@@ -25,22 +25,6 @@ module EventsHelpers
     }
   end
 
-  def event_date_params
-    {
-      starts_at: event.starts_at,
-      ends_at: event.ends_at,
-    }
-  end
-
-  def event_location_params
-    {
-      city: event.city,
-      barangay: event.barangay,
-      house: event.house,
-      landmark: event.landmark
-    }
-  end
-
   def event_params_no_dependency
     {
       name: 'event.name',
@@ -54,11 +38,5 @@ module EventsHelpers
       house: 'event.house',
       landmark: 'event.landmark'
     }
-  end
-
-  def create_event
-    post '/api/v1/events', params: event_params, headers:
-      { Accept: 'application/json',
-        Authorization: json['token'] }
   end
 end

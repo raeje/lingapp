@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::EventsUsers', type: :request do
-  describe 'POST /api/v1/events_users' do
+RSpec.describe 'Api::V1::Messages', type: :request do
+  describe 'POST /api/v1/messages' do
     before(:each) do
       @user_volunteer = create(:user_volunteer)
       @user_organizer = create(:user_organizer)
@@ -15,40 +15,35 @@ RSpec.describe 'Api::V1::EventsUsers', type: :request do
       @event = Event.last
     end
 
-    context 'with authorized user & valid params - volunteer' do
+    context 'with unauthorized user - unapproved volunteer' do
       it 'works!' do
         login_as(@user_volunteer)
-        post '/api/v1/events_users',
+        post '/api/v1/messages',
           params: { event_id: @event.id, user_id: @user_volunteer.id },
           headers: { Accept: 'application/json', Authorization: json['token'] }
-        expect(response).to have_http_status(201)
-      end
-    end
-
-    context 'with unauthorized user - organizer' do
-      it 'works!' do
-        login_as(@user_organizer)
-        post '/api/v1/events_users',
-          params: { event_id: @event.id, user_id: @user_organizer.id },
-          headers:
-          { Accept: 'application/json',
-            Authorization: json['token'] }
+        p response.body
         expect(response).to have_http_status(401)
       end
     end
 
-    context 'with duplicate index(event_id & user_id)' do
+    context 'with authorized user - organizer' do
       it 'works!' do
-        login_as(@user_volunteer)
-        post '/api/v1/events_users',
+        login_as(@user_organizer)
+        post '/api/v1/messages',
+          params: { event_id: @event.id, user_id: @user_volunteer.id, body: 'hello world!' },
+          headers: { Accept: 'application/json', Authorization: json['token'] }
+        p response.body
+        expect(response).to have_http_status(201)
+      end
+    end
+
+    context 'with invalid params' do
+      it 'works!' do
+        login_as(@user_organizer)
+        post '/api/v1/messages',
           params: { event_id: @event.id, user_id: @user_volunteer.id },
           headers: { Accept: 'application/json', Authorization: json['token'] }
-
-        login_as(@user_volunteer)
-        post '/api/v1/events_users',
-          params: { event_id: @event.id, user_id: @user_volunteer.id },
-          headers: { Accept: 'application/json', Authorization: json['token'] }
-
+        p response.body
         expect(response).to have_http_status(422)
       end
     end

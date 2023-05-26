@@ -44,10 +44,11 @@ module Api
       def destroy
         @events_user = EventsUser.where(event_id: params[:event_id], user_id: @current_user.id).first
 
-        if @events_user.destroy
+        if @events_user
+          @events_user.destroy
           render(json: { message: 'You have left the event. We hope to see you at future events!' }, status: :ok)
         else
-          render(json: { errors: @events_user.errors }, status: :unprocessable_entity)
+          render(json: { errors: 'Failed to delete the event.' }, status: :unprocessable_entity)
         end
       end
 
