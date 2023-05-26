@@ -4,6 +4,7 @@ import { login } from "../helpers/api/lingapp/authentication";
 import logo from "../images/lingapp-logo-reverse.png";
 import { getItem, setItem } from "../helpers/localStorage";
 import { toast } from "react-toastify";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 const DIMENSIONS_CLASS = "py-2 px-4 h-14 w-4/5 text-xl rounded-md max-w-lg";
 
@@ -14,6 +15,7 @@ const initLoginForm = {
 
 const Login = () => {
   const [loginForm, setLoginForm] = useState(initLoginForm);
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -25,6 +27,10 @@ const Login = () => {
     }
   }, [navigate]);
 
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setLoginForm({ ...loginForm, [name]: value });
@@ -34,6 +40,7 @@ const Login = () => {
     const loginAction = await login(loginForm);
 
     if (loginAction.status === 200) {
+      setLoading(false);
       toast.success("Welcome back!");
       setItem("Authorization", "");
       setItem("Authorization", loginAction.data.token);
@@ -50,6 +57,10 @@ const Login = () => {
       handleLogin();
     }
   };
+
+  if (loading) {
+    return <PacmanLoader loading={true} color="#EF4444" size={80} />;
+  }
 
   return (
     <div className="bg-red-400 h-screen min-w-full flex flex-col place-items-center pt-12 gap-4">

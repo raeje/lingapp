@@ -18,6 +18,7 @@ import {
 
 const Events = () => {
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchData();
@@ -27,6 +28,7 @@ const Events = () => {
     try {
       const events = await getEvents();
       setEvents(events);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }

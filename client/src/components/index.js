@@ -3,6 +3,7 @@ import EventCategoryCard from "./EventCategoryCard";
 import EventCard from "./EventCard";
 import EventFormGroupLayout from "./EventFormGroupLayout";
 import GuestListTable from "./GuestListTable";
+import Loader from "./Loader";
 import Logo from "./Logo";
 import NoAvailableEventsMessage from "./NoAvailableEventsMessage";
 import NotificationCard from "./NotificationCard";
@@ -14,6 +15,7 @@ export {
   BadgeButton,
   EventCategoryCard,
   GuestListTable,
+  Loader,
   Logo,
   NoAvailableEventsMessage,
   TopBar,
