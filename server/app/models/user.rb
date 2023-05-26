@@ -9,7 +9,6 @@
 #  badge_title     :string
 #  barangay        :string
 #  city            :string
-#  contact_number  :string
 #  email           :string
 #  first_name      :string
 #  house           :string
@@ -40,9 +39,6 @@ class User < ApplicationRecord
   validates(:city, presence: true)
   validates(:barangay, presence: true)
   validates(:house, presence: true)
-
-  # contact_number validation
-  validates(:contact_number, uniqueness: true)
 
   # role validation
   validates(:role, presence: true)

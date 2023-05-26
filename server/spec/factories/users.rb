@@ -7,7 +7,6 @@
 #  badge_title     :string
 #  barangay        :string
 #  city            :string
-#  contact_number  :string
 #  email           :string
 #  first_name      :string
 #  house           :string
@@ -37,7 +36,6 @@ FactoryBot.define do
       # User Info
       first_name { full_name.split(' ').first }
       last_name  { full_name.split(' ').second || Faker::Name.last_name }
-      contact_number { Faker::PhoneNumber.cell_phone }
       # Account Info
       email      { "#{first_name}.#{last_name}@lingapp.com".downcase }
       password   { first_name }
@@ -51,7 +49,6 @@ FactoryBot.define do
       # User Info
       first_name { full_name.split(' ').first }
       last_name  { full_name.split(' ').second || Faker::Name.last_name }
-      contact_number { Faker::PhoneNumber.cell_phone }
       # Account Info
       email      { "#{first_name}.#{last_name}@lingapp.com".downcase }
       password   { first_name }

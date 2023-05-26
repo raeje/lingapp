@@ -7,7 +7,6 @@
 #  badge_title     :string
 #  barangay        :string
 #  city            :string
-#  contact_number  :string
 #  email           :string
 #  first_name      :string
 #  house           :string
