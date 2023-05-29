@@ -53,7 +53,7 @@ const Events = () => {
     <div
       className={`h-full w-full overflow-x-hidden pt-1 pb-24 bg-gray-200 flex flex-col items-center [&>div]:flex-shrink-0 ${RESPONSIVE_CLASS_NAMES}`}
     >
-      <div className="h-56 w-full md:h-max md:w-1/2 md:bg-gray-100 md:overflow-y-auto flex items-center overflow-scroll bg-white px-2 mb-2 gap-2 [&>div]:flex-shrink-0 z-30">
+      <div className="h-56 w-full md:h-max md:w-2/5 md:bg-gray-100 flex items-center overflow-y-auto bg-white px-2 mb-2 gap-2 [&>div]:flex-shrink-0 z-30">
         <EventCategoryCard image={All} name="All" filterEvent={filterEvent} />
         <EventCategoryCard
           image={Animal}
