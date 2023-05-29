@@ -18,7 +18,7 @@ const Notifications = () => {
   };
 
   return (
-    <div className="h-max w-full overflow-x-hidden pt-1 pb-24 bg-gray-300 flex flex-col items-center">
+    <div className="h-max w-full overflow-x-hidden pt-1 pb-24 bg-gray-300 flex flex-col items-center md:w-2/5 md:bg-gray-50 md:gap-2">
       {notifs.map((notif) => (
         <NotificationCard
           notif={notif}

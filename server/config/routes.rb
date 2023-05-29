@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       # Users
       get   'users'                  => 'users#index'
       patch 'users/:id'              => 'users#update'
+      get   'users/:id'              => 'users#show'
       # Users custom route
       get   'users/:id/achievements' => 'users#achievements'
 

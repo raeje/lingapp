@@ -49,7 +49,7 @@ const NavBar = () => {
 
   const CreateEventLink = () => {
     return (
-      <div className="h-16 w-16 bg-white absolute -top-5 left-1/2 transform -translate-x-1/2  border-b-2 border-gray-400 rounded-full grid place-items-center">
+      <div className="h-16 w-16 bg-white absolute -top-5 left-1/2 transform -translate-x-1/2 border-b-2 border-gray-400 rounded-full grid place-items-center">
         <NavLink
           className="h-16 w-16 bg-red-400 text-white rounded-full text-center grid place-items-center border-2 border-white"
           to="/events/new"

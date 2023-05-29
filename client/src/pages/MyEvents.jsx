@@ -20,7 +20,7 @@ const MyEvents = () => {
   };
 
   return (
-    <div className="h-max w-full overflow-x-hidden pt-1 pb-24 bg-gray-300 flex flex-col items-center">
+    <div className="h-max w-full overflow-x-hidden pt-1 pb-24 bg-gray-300 flex flex-col items-center md:bg-gray-100 md:gap-4 md:pt-4">
       {events.length < 1 ? <NoAvailableEventsMessage /> : ""}
 
       {events.map((event, index) => {

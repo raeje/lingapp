@@ -66,7 +66,7 @@ const Login = () => {
     <div className="bg-red-400 h-screen min-w-full flex flex-col place-items-center pt-12 gap-4">
       <div className="py-4 flex flex-col place-items-center">
         <img src={logo} alt="lingapp-logo" className="h-36 w-36" />
-        <h1 className="text-5xl text-white">Lingapp</h1>
+        <h1 className="text-5xl text-white">LingApp</h1>
       </div>
 
       <input

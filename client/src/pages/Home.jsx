@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import { TopBar, NavBar } from "../components";
+import { TopBar, NavBar, LeftSidebar } from "../components";
 import { getItem } from "../helpers/localStorage";
+
+const RESPONSIVE_CLASS_NAMES = "md:bg-gray-50";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -16,10 +18,12 @@ const Home = () => {
   }, [navigate]);
 
   return (
-    <div className="bg-gray-200 h-screen w-full max-w-screen overlap-y-hidden flex flex-col items-center">
+    <div
+      className={`bg-gray-200 h-screen w-full max-w-screen overlap-y-hidden flex flex-col items-center ${RESPONSIVE_CLASS_NAMES}`}
+    >
       <TopBar />
       <Outlet />
-      <NavBar />
+      {window.innerWidth < 767 ? <NavBar /> : <LeftSidebar />}
     </div>
   );
 };

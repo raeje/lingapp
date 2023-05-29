@@ -7,6 +7,12 @@ module Api
       protect_from_forgery with: :null_session
       before_action :authorize_request
 
+      # GET /api/v1/users/update/:id
+      def show
+        @user = User.find(params[:id])
+        render(json: { id: @user.id, email: @user.email, first_name: @user.first_name,
+                       last_name: @user.last_name, role: @user.role, badge_title: @user.badge_title }, status: :ok)
+      end
 
       # PATCH /api/v1/users/update/:id
       def update
@@ -35,7 +41,6 @@ module Api
                       :first_name,
                       :last_name,
                       :alias,
-                      :contact_number,
                       :badge_title)
       end
     end

@@ -32,8 +32,8 @@ const Achievements = () => {
   };
 
   return (
-    <div className="h-max w-full overflow-x-hidden pt-1 pb-24 bg-red-300 flex flex-col items-center">
-      <div className="h-32 w-full p-2 bg-red-900 flex flex-col items-center justify-center mb-1 border-y-4 border-yellow-400">
+    <div className="h-max w-full overflow-x-hidden pt-1 pb-24 bg-red-300 flex flex-col items-center md:w-2/5">
+      <div className="h-32 w-full p-6 bg-red-900 flex flex-col items-center justify-center mb-1 border-y-4 border-yellow-400">
         <span className="text-white text-4xl font-bold text-center mb-1">
           {achievements.first_name} {achievements.last_name}
         </span>
@@ -50,7 +50,7 @@ const Achievements = () => {
         of 21
       </span>
 
-      <div className="h-max w-full md:w-2/3 bg-red-200 grid grid-cols-3 gap-2 place-items-center py-10 px-1">
+      <div className="h-max w-full md:w-full bg-red-200 grid grid-cols-3 gap-2 place-items-center py-10 px-1">
         {/* Category: Animal */}
         <BadgeButton
           name="The Pawtector"

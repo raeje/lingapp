@@ -84,7 +84,7 @@ const Signup = () => {
     <div className="bg-red-400 h-screen min-w-full flex flex-col place-items-center pt-12 gap-4">
       <div className="py-4 flex flex-col place-items-center fixed top-0 left-4">
         <img src={logo} alt="lingapp-logo" className="h-16 w-16" />
-        <h1 className="text-xl text-white">Lingapp</h1>
+        <h1 className="text-xl text-white">LingApp</h1>
       </div>
 
       {/* Carousel container */}

@@ -41,7 +41,7 @@ const NotificationCard = ({ notif, refreshNotifs }) => {
 
   return (
     <div
-      className={`h-max w-full grid grid-cols-5 gap-2 my-1 p-2 ${bgColor(
+      className={`h-max w-full grid grid-cols-5 gap-2 my-1 p-2 md:rounded-xl md:border-2 md:border-gray-300 ${bgColor(
         notif.title
       )}`}
     >

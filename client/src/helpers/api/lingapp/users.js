@@ -4,9 +4,17 @@ import { getItem } from "../../localStorage";
 const LINGAPP_URL = process.env.REACT_APP_LINGAPP_URL;
 const CONTENT_TYPE = "application/json;charset=UTF-8";
 
-const me = async () => {
+const getUser = async (id) => {
+  const Authorization = getItem("Authorization");
   return await axios
-    .get(`${LINGAPP_URL}/users/me`)
+    .get(`${LINGAPP_URL}/users/${id}`, {
+      headers: {
+        "Content-Type": CONTENT_TYPE,
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        Authorization,
+      },
+    })
     .then((response) => {
       return response;
     })
@@ -39,7 +47,6 @@ const updateUser = async ({
   badge_title,
   barangay,
   city,
-  contact_number,
   email,
   first_name,
   house,
@@ -54,7 +61,6 @@ const updateUser = async ({
         badge_title,
         barangay,
         city,
-        contact_number,
         email,
         first_name,
         house,
@@ -78,4 +84,4 @@ const updateUser = async ({
     });
 };
 
-export { getAchievements, me, updateUser };
+export { getAchievements, getUser, updateUser };

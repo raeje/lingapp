@@ -21,13 +21,16 @@ const TopBar = () => {
       } bg-white `}
     >
       <Logo />
-
-      <button
-        className="p-2 mr-1 first-line:rounded-md"
-        onClick={() => handleLogout()}
-      >
-        <RiLogoutBoxLine className="h-6 w-6 text-gray-700" />
-      </button>
+      {window.innerWidth < 767 ? (
+        <button
+          className="p-2 mr-1 first-line:rounded-md"
+          onClick={() => handleLogout()}
+        >
+          <RiLogoutBoxLine className="h-6 w-6 text-gray-700" />
+        </button>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

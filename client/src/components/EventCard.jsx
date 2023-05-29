@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom";
 import logo from "../images/logo.png";
 import logoGray from "../images/logo-gray.png";
 
+const RESPONSIVE_CLASS_NAMES = "md:h-2/3 md:w-2/5 md:rounded-lg";
+
 const formatDate = (datetimeString) => {
   const date = new Date(datetimeString).toDateString().substring(4);
   const time = new Date(datetimeString)
@@ -41,7 +43,7 @@ const EventCard = ({ event }) => {
 
   return (
     <div
-      className="h-96 w-full md:w-1/2 md:rounded-lg bg-white py-2 mb-2 z-10 box-border shadow-md shadow-black"
+      className={`h-96 w-full bg-white py-2 mb-2 z-10 box-border shadow-md shadow-gray-400 ${RESPONSIVE_CLASS_NAMES}`}
       key={event.id}
     >
       <div className="h-20 w-full p-2 grid grid-cols-5">
@@ -71,7 +73,7 @@ const EventCard = ({ event }) => {
         <img
           src={event.image}
           alt="event"
-          className="object-cover h-64 w-full"
+          className="object-cover h-64 w-full md:h-72"
         />
       </NavLink>
       <div className="w-full p-2 flex justify-between">
