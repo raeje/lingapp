@@ -2,7 +2,6 @@ import React from "react";
 import { updateUser } from "../helpers/api/lingapp/users";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { ComputerDesktopIcon } from "@heroicons/react/24/solid";
 
 const IconComponent = ({ icon: Icon, className }) => {
   return <Icon className={className} />;

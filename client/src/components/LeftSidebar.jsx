@@ -33,9 +33,23 @@ const LeftSidebar = () => {
     navigate("/login");
   };
 
+  const fetchUserData = async () => {
+    try {
+      const response = await getUser(user_id);
+      setCurrentUser(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (!currentUser) {
+    setTimeout(() => {
+      fetchUserData();
+    }, 1000);
+  }
+
   useEffect(() => {
     fetchData();
-    fetchUserData();
   }, []);
 
   useEffect(() => {
@@ -43,7 +57,6 @@ const LeftSidebar = () => {
     const timer = setTimeout(() => {
       setCounter(counter + 1);
       fetchData();
-      if (!currentUser) fetchUserData();
     }, POLLING_TIMEOUT_SECS * 1000);
 
     return () => {
@@ -60,29 +73,23 @@ const LeftSidebar = () => {
     }
   };
 
-  const fetchUserData = async () => {
-    try {
-      const response = await getUser(user_id);
-      setCurrentUser(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <div className="h-screen w-80 fixed top-0 left-0 z-10 box-border bg-gray-100 pt-16 px-4">
       <div className="h-max w-full static flex flex-col gap-2">
         {/* Current User Info*/}
-        <div className="h-max px-2 py-4 flex flex-col -gap-1 static border-b-2 border-gray-200 mb-4">
-          <span className="font-bold">
-            {currentUser?.first_name} {currentUser?.last_name}
-          </span>
-          <span className="text-sm text-gray-500">{currentUser?.email}</span>
-          <span className="absolute w-4/5 top-14 left-2 text-5xl font-extrabold opacity-30 -z-10 text-right text-red-300 italic">
-            {currentUser?.role?.toUpperCase()}
-          </span>
-        </div>
+        {decodedToken ? (
+          <div className="h-max px-2 py-4 flex flex-col -gap-1 static border-b-2 border-gray-200 mb-4">
+            <span className="font-bold">
+              {currentUser?.first_name} {currentUser?.last_name}
+            </span>
+            <span className="text-sm text-gray-500">{currentUser?.email}</span>
+            <span className="absolute w-4/5 top-14 left-2 text-5xl font-extrabold opacity-30 -z-10 text-right text-red-300 italic">
+              {currentUser?.role?.toUpperCase()}
+            </span>
+          </div>
+        ) : (
+          ""
+        )}
 
         <LeftSidebarButton
           path="/notifications"
