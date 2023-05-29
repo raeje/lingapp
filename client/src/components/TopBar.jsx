@@ -16,7 +16,7 @@ const TopBar = () => {
 
   return (
     <div
-      className={`sticky h-12 w-full flex justify-between place-items-center border-b-2 border-red-900 z-30 ${
+      className={`sticky h-12 w-full flex justify-between place-items-center border-b-2 border-red-900 md:px-2 z-30 ${
         scrollDirection === "down" ? "-top-12" : "top-0"
       } bg-white `}
     >

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import { TopBar, NavBar, LeftSidebar } from "../components";
+import { TopBar, NavBar, LeftSidebar, RightSidebar } from "../components";
 import { getItem } from "../helpers/localStorage";
 
 const RESPONSIVE_CLASS_NAMES = "md:bg-gray-50";
@@ -23,7 +23,14 @@ const Home = () => {
     >
       <TopBar />
       <Outlet />
-      {window.innerWidth < 767 ? <NavBar /> : <LeftSidebar />}
+      {window.innerWidth < 767 ? (
+        <NavBar />
+      ) : (
+        <>
+          <LeftSidebar />
+          <RightSidebar />
+        </>
+      )}
     </div>
   );
 };
